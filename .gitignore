@@ -1,0 +1,38 @@
+# Laravel specific ignores
+/vendor/
+/node_modules/
+.env
+.env.backup
+.env.testing
+/storage/*.key
+/public/hot
+/public/storage
+/public/build
+
+# Python specific ignores
+__pycache__/
+*.pyc
+*.pyd
+*.pyo
+.Python
+/venv/
+/env/
+/pip-wheel-metadata/
+.tox/
+.coverage
+.pytest_cache/
+
+# IDE specific ignores
+.idea/
+.vscode/
+
+# OS specific ignores
+.DS_Store
+thumbs.db
+
+# Project specific ignores
+sids.txt
+mensagens_extraidas.txt
+*.rar
+
+
