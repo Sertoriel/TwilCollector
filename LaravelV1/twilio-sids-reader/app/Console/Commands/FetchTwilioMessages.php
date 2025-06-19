@@ -37,17 +37,30 @@ class FetchTwilioMessages extends Command
         $lines = [];
         foreach ($sids as $sid) {
             try {
+                // Busca mensagem pelo SID
                 $message = $client->messages($sid)->fetch();
-                $lines[] = "{$sid}: {$message->body}";
-                $this->info("OK  {$sid}");
+
+                //Extração de Erros Se houver
+                $body = $message->body;
+                $status = $message->status;
+                $errorCode = $message->errorCode ?? '0';
+                $errorMsg = $message->errorMessage ?? '';
+
+                //Linhas de Saida
+                $lines[] = sprintf(
+                    "SID: %s | Status: %s | Erro: %s (%s) | Mensagem/body: %s",
+                    $sid, $status, $errorCode, $errorMsg, str_replace(["\r, ", "\n"], '', $body)
+                );
+
+                $this->info("SID OK:  {$sid} (Message Sts: {$status})");
             } catch (\Exception $e) {
-                $lines[] = "{$sid}: ERRO - {$e->getMessage()}";
-                $this->error("ERR {$sid}");
+                $lines[] = "{$sid} | ERRO AO BUSCAR - {$e->getMessage()}";
+                $this->error("SID ERR: {$sid}");
             }
         }
 
         // Salva resultado
-        file_put_contents($outputFile, implode(PHP_EOL, $lines));
+        file_put_contents($outputFile, implode(PHP_EOL, $lines) . PHP_EOL);
         $this->info("Mensagens salvas em: {$outputFile}");
 
         return 0;
