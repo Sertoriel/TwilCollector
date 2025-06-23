@@ -3,6 +3,7 @@
 @section('content')
     <div class="container">
         <h1 class="mb-4">Consulta de Mensagens Twilio</h1>
+        <a href="{{ route('messages.ajax') }}" class="btn btn-outline-secondary mb-3">Ir para versão AJAX</a>
 
         {{-- FORMULÁRIO --}}
         <form action="{{ route('messages.lookup') }}" method="POST" enctype="multipart/form-data" class="mb-5">

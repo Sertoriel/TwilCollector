@@ -30,7 +30,7 @@ class MessageLogController extends Controller
                 $log = MessageLog::create([
                     'sid'           => $sid,
                     'status'        => $msg->status,
-                    'error_code'    => $msg->errorCode,
+                    'error_code'    => $msg->errorCode ?? 0,
                     'body'          => $msg->body,
                     'error_message' => null,
                 ]);

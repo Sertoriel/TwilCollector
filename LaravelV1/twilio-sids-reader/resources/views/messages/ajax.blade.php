@@ -10,7 +10,7 @@
 
 <body class="p-4">
     <h2>Consulta de SIDs com AJAX</h2>
-
+    <a href="{{ route('messages.form') }}" class="btn btn-outline-secondary mb-3">Ir para versão tradicional</a>
     <div class="mb-3">
         <label for="sids" class="form-label">Cole SIDs aqui (um por linha):</label>
         <textarea id="sids" class="form-control" rows="6"></textarea>
@@ -58,8 +58,7 @@
                             <td>${item.body ?? item.error_message}</td>
                         `;
                         document.querySelector('#resultados tbody').appendChild(tr);
-                        document.getElementById('log').textContent +=
-                            `✔️ ${item.sid} → ${item.status}\n`;
+                        document.getElementById('log').textContent += `✔️ ${item.sid} → ${}\n`;
                     });
                 })
                 .catch(err => {
