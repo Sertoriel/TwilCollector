@@ -44,12 +44,15 @@ class FetchTwilioMessages extends Command
                 $body = $message->body;
                 $status = $message->status;
                 $errorCode = $message->errorCode ?? '0';
+                $to = $message->to ?? '';
                 $errorMsg = $message->errorMessage ?? '';
+                $dateSent = $message->dateSent ? $message->dateSent->format('Y-m-d H:i:s') : 'N/A';
+                $dateCreated = $message->dateCreated ? $message->dateCreated->format('Y-m-d H:i:s') : 'N/A';
 
                 //Linhas de Saida
                 $lines[] = sprintf(
-                    "SID: %s | Status: %s | Erro: %s (%s) | Mensagem/body: %s",
-                    $sid, $status, $errorCode, $errorMsg, str_replace(["\r, ", "\n"], '', $body)
+                    "SID: %s | Status: %s | Erro: %s (%s) | Mensagem/body: %s | To: %s | Data Envio: %s | Data Criação: %s",
+                    $sid, $status, $errorCode, $errorMsg, str_replace(["\r, ", "\n"], '', $body), $to, $dateSent, $dateCreated
                 );
 
                 $this->info("SID OK:  {$sid} (Message Sts: {$status})");
