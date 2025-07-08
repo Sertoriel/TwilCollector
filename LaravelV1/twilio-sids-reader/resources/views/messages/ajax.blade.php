@@ -10,9 +10,14 @@
 
 <body class="p-4">
     <h2>Consulta de SIDs com AJAX</h2>
+    <a href="{{ route('messages.form') }}" class="btn btn-outline-secondary mb-3">Ir para versão legado</a>
     <div class="mb-3">
         <label for="sids" class="form-label">Cole SIDs aqui (um por linha):</label>
         <textarea id="sids" class="form-control" rows="6"></textarea>
+    </div>
+    <div class="mb-3">
+        <label class="form-label fw-bold">…ou envie um arquivo .txt</label>
+        <input type="file" name="sids_file" class="form-control">
     </div>
 
     <button id="buscar" class="btn btn-primary mb-3">Buscar Mensagens</button>
@@ -56,12 +61,14 @@
                             <td>${item.error_code ?? ''}</td>
                             <td>${item.body ?? item.error_message}</td>
                         `;
-                        document.querySelector('#resultados tbody').appendChild(tr);
                         document.getElementById('log').textContent +=
                             `✔️ ${item.sid} → ${item.status}\n`;
+                        document.querySelector('#resultados tbody').appendChild(tr);
                     });
                 })
                 .catch(err => {
+                    console.error('Detalhes do erro:', err.response.data);
+                    
                     document.getElementById('log').textContent += '❌ Erro ao buscar mensagens.\n';
                     console.error(err);
                 });
