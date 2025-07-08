@@ -10,7 +10,7 @@
 
 <body class="p-4">
     <h2>Consulta de SIDs com AJAX</h2>
-    <a href="{{ route('messages.form') }}" class="btn btn-outline-secondary mb-3">Ir para versão tradicional</a>
+
     <div class="mb-3">
         <label for="sids" class="form-label">Cole SIDs aqui (um por linha):</label>
         <textarea id="sids" class="form-control" rows="6"></textarea>
@@ -26,7 +26,6 @@
         <thead>
             <tr>
                 <th>SID</th>
-                <th>Exec. SID</th>
                 <th>Status</th>
                 <th>Erro</th>
                 <th>Mensagem</th>
@@ -34,23 +33,8 @@
         </thead>
         <tbody></tbody>
     </table>
-    
 
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <script>
-        res.data.forEach(item => {
-    const tr = document.createElement('tr');
-    tr.innerHTML = `
-        <td>${item.sid}</td>
-        <td>${item.execution_sid || '—'}</td>
-        <td>${item.status}</td>
-        <td>${item.error_code ?? ''}</td>
-        <td>${item.body ?? item.error_message}</td>
-    `;
-    document.querySelector('#resultados tbody').appendChild(tr);
-    document.getElementById('log').textContent += `✔️ ${item.sid} → ${item.status}\n`;
-});
-    </script>
     <script>
         document.getElementById('buscar').addEventListener('click', () => {
             const sids = document.getElementById('sids').value
@@ -74,7 +58,8 @@
                             <td>${item.body ?? item.error_message}</td>
                         `;
                         document.querySelector('#resultados tbody').appendChild(tr);
-                        document.getElementById('log').textContent += `✔️ ${item.sid} → ${}\n`;
+                        document.getElementById('log').textContent +=
+                            `✔️ ${item.sid} → ${item.status}\n`;
                     });
                 })
                 .catch(err => {
