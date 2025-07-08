@@ -10,7 +10,6 @@
 
 <body class="p-4">
     <h2>Consulta de SIDs com AJAX</h2>
-
     <div class="mb-3">
         <label for="sids" class="form-label">Cole SIDs aqui (um por linha):</label>
         <textarea id="sids" class="form-control" rows="6"></textarea>
