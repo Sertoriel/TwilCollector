@@ -10,14 +10,14 @@
 
 <body class="p-4">
     <h2>Consulta de SIDs com AJAX</h2>
-    <a href="{{ route('messages.form') }}" class="btn btn-outline-secondary mb-3">Ir para versão legado</a>
     <div class="mb-3">
         <label for="sids" class="form-label">Cole SIDs aqui (um por linha):</label>
         <textarea id="sids" class="form-control" rows="6"></textarea>
     </div>
     <div class="mb-3">
         <label class="form-label fw-bold">…ou envie um arquivo .txt</label>
-        <input type="file" name="sids_file" class="form-control">
+        <input id="sids_file" type="file" class="form-control">
+        <button id="upload" type="submit" class="btn btn-secondary mt-2">Enviar Arquivo</button>
     </div>
 
     <button id="buscar" class="btn btn-primary mb-3">Buscar Mensagens</button>
@@ -39,6 +39,33 @@
     </table>
 
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    {{-- <script>
+        document.getElementById('upload').addEventListener('click', () => {
+            const sids_file = document.getElementById('sids_file');
+
+
+            if (!sids_file) {
+              document.getElementById('log').textContent = '❌ Nenhum arquivo adicionado.';  
+              return;
+            };
+
+            const reader = new FileReader();
+
+            reader.onload = function(event) {
+                const content = event.target.result;
+                const sids = content.split('\n')
+                .map(sid => sid.trim())
+                .filter(sid => sid.length > 0);
+
+                document.getElementById('log').textContent = '🔍 Lendo e enviando arquivo...\n';
+
+                document.getElementById('sids').value = sids.join('\n');
+
+                document.getElementById('log').textContent += `✔️ ${sids.length} SIDs enviados.\n`;
+            }
+
+        });
+    </script> --}}
     <script>
         document.getElementById('buscar').addEventListener('click', () => {
             const sids = document.getElementById('sids').value
