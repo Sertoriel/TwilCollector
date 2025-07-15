@@ -37,35 +37,48 @@
         </thead>
         <tbody></tbody>
     </table>
-
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="{{ asset('js/app/twilio/lookup.js') }}"></script>
+</body>
+
+</html>
+
+
+
+
+
+
     {{-- <script>
         document.getElementById('upload').addEventListener('click', () => {
-            const sids_file = document.getElementById('sids_file');
-
-
-            if (!sids_file) {
-              document.getElementById('log').textContent = '❌ Nenhum arquivo adicionado.';  
-              return;
-            };
-
-            const reader = new FileReader();
-
-            reader.onload = function(event) {
-                const content = event.target.result;
-                const sids = content.split('\n')
-                .map(sid => sid.trim())
-                .filter(sid => sid.length > 0);
-
-                document.getElementById('log').textContent = '🔍 Lendo e enviando arquivo...\n';
-
-                document.getElementById('sids').value = sids.join('\n');
-
-                document.getElementById('log').textContent += `✔️ ${sids.length} SIDs enviados.\n`;
+            if(!document.getElementById('sids_file').files.length) {
+                document.getElementById('log').textContent = '❌ Nenhum arquivo selecionado.';
+                return;
             }
 
+            document.getElementById('log').textContent = '🔍 Lendo e enviando arquivo...\n';
+            const file = document.getElementById('sids_file').files[0];
+            axios.post('/api/twilio/lookup', {
+                    sids_file: file
+                }, {
+                    headers: {
+                        'Content-Type': 'multipart/form-data'
+                    }
+                })
+                .then(res => {
+                    const sids = res.data.sids;
+                    document.getElementById('sids').value = sids.join('\n');
+                    document.getElementById('log').textContent += `✔️ ${sids.length} SIDs lidos do arquivo.\n`;
+                })
+                .catch(err => {
+                    console.error('Erro ao ler arquivo:', err);
+                    document.getElementById('log').textContent += '❌ Erro ao ler arquivo.\n';
+                });
+
+
+            document.getElementById('log').textContent += `✔️ ${sids.length} SIDs enviados.\n`;
+
         });
-    </script> --}}
+    </script>
     <script>
         document.getElementById('buscar').addEventListener('click', () => {
             const sids = document.getElementById('sids').value
@@ -100,7 +113,4 @@
                     console.error(err);
                 });
         });
-    </script>
-</body>
-
-</html>
+    </script>--}}
