@@ -12,7 +12,7 @@ document.getElementById('upload')?.addEventListener('click', () => {
     const formData = new FormData();
     formData.append('sids_file', file);
 
-    axios.post('/api/twilio/lookup', formData, {
+    axios.post('/api/twilio/read-file', formData, {
         headers: {
             'Content-Type': 'multipart/form-data',
             'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content

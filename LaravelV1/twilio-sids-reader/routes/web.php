@@ -12,3 +12,6 @@ Route::get('/messages/ajax', fn () => view('messages.ajax'))->name('messages.aja
 
 // ✅ API para busca de SIDs
 Route::post('/api/twilio/lookup', [MessageLogController::class, 'lookup']);
+
+// ✅ API para leitura de arquivo
+Route::post('/api/twilio/read-file', [MessageLogController::class, 'ReadFile']);

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\MessageLog;
 use Twilio\Rest\Client;
+use Illuminate\Support\Facades\Log;
 
 class MessageLogController extends Controller
 {
@@ -23,7 +24,6 @@ class MessageLogController extends Controller
         $request->validate([
             'sids' => 'required|array',
             'sids.*' => 'required|string'
-            // 'sids_file' => 'nullable|file|mimes:txt',
         ]);
         $sids = $request->input('sids');
 
@@ -55,30 +55,24 @@ class MessageLogController extends Controller
 
         return response()->json($results);
     }
-    // if ($request->hasFile('sids_file') && !$request->file('sids_file')->isValid()) {
-    //     Log::error('Erro ao carregar o arquivo de SIDs', [
-    //         'file' => $request->file('sids_file')->getErrorMessage(),
-    //     ]);
-    // }
+    public function ReadFile(Request $request)
+    {
+         // Função 1: Processa arquivo TXT e retorna SIDs
+        $request->validate([
+            'sids_file' => 'required|file|mimes:txt'
+        ]);
 
-    // //📚 Extrair SIDs do arquivo OU do Texto, se fornecido
+        if (!$request->file('sids_file')->isValid()) {
+            return response()->json(['error' => 'Arquivo inválido'], 400);
+        }
 
-    // $sids = null;
+        $filePath = $request->file('sids_file')->getRealPath();
+        $sids = collect(file($filePath))
+            ->map(fn($line) => trim($line))
+            ->filter()
+            ->unique()
+            ->values(); // Reindexa o array
 
-    // if (!empty($request->input('sids'))) {
-    //     $sids = collect($request->input('sids'))
-    //         ->map(fn($sid) => trim($sid))
-    //         ->filter()
-    //         ->unique();
-    // } elseif ($request->hasFile('sids_file')) {
-    //     $fileLines = file($request->file('sids_file')->getRealPath());
-    //     $sids = collect($fileLines)
-    //         ->map(fn($line) => trim($line))
-    //         ->filter()
-    //         ->unique();
-    // } else {
-    //     return response()->json(['error' => 'Nenhum SID fornecido'], 400);
-    // }
-
-    // $results = [];
+        return response()->json(['sids' => $sids]);
+    }
 }
