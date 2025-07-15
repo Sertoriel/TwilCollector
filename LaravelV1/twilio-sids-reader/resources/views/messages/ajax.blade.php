@@ -11,6 +11,12 @@
 <body class="p-4">
     <h2>Consulta de SIDs com AJAX</h2>
     <div class="mb-3">
+        <label for="twilioaccount_sid" class="form-label">SID da Conta Twilio:</label>
+        <input type="text" id="twilioaccount_sid" class="form-control" placeholder="Digite o SID da conta aqui" value="{{ old('twilioaccount_sid', $twilioaccount_sid ?? '') }}">
+        <label for="AuthToken" class="form-label">Token de Autenticação:</label>
+        <input type="text" id="AuthToken" class="form-control" placeholder="Digite o token de autenticação aqui" value="{{ old('AuthToken', $authToken ?? '') }}">
+    </div>
+    <div class="mb-3">
         <label for="sids" class="form-label">Cole SIDs aqui (um por linha):</label>
         <textarea id="sids" class="form-control" rows="6"></textarea>
     </div>
