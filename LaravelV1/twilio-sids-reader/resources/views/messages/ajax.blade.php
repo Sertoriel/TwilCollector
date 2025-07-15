@@ -14,6 +14,7 @@
         <label for="sids" class="form-label">Cole SIDs aqui (um por linha):</label>
         <textarea id="sids" class="form-control" rows="6"></textarea>
     </div>
+    {{-- 📚 ENVIO DOS ARQUIVOS!!! --}}
     <div class="mb-3">
         <label class="form-label fw-bold">…ou envie um arquivo .txt</label>
         <input id="sids_file" type="file" class="form-control">
@@ -37,80 +38,10 @@
         </thead>
         <tbody></tbody>
     </table>
+
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <script src="{{ asset('js/app/twilio/lookup.js') }}"></script>
+    <script src="{{ asset ('js/app/twilio/lookup.js') }}"></script>
+    <script src="{{ asset ('js/app/twilio/clsaj.js') }}"></script>
 </body>
 
 </html>
-
-
-
-
-
-
-    {{-- <script>
-        document.getElementById('upload').addEventListener('click', () => {
-            if(!document.getElementById('sids_file').files.length) {
-                document.getElementById('log').textContent = '❌ Nenhum arquivo selecionado.';
-                return;
-            }
-
-            document.getElementById('log').textContent = '🔍 Lendo e enviando arquivo...\n';
-            const file = document.getElementById('sids_file').files[0];
-            axios.post('/api/twilio/lookup', {
-                    sids_file: file
-                }, {
-                    headers: {
-                        'Content-Type': 'multipart/form-data'
-                    }
-                })
-                .then(res => {
-                    const sids = res.data.sids;
-                    document.getElementById('sids').value = sids.join('\n');
-                    document.getElementById('log').textContent += `✔️ ${sids.length} SIDs lidos do arquivo.\n`;
-                })
-                .catch(err => {
-                    console.error('Erro ao ler arquivo:', err);
-                    document.getElementById('log').textContent += '❌ Erro ao ler arquivo.\n';
-                });
-
-
-            document.getElementById('log').textContent += `✔️ ${sids.length} SIDs enviados.\n`;
-
-        });
-    </script>
-    <script>
-        document.getElementById('buscar').addEventListener('click', () => {
-            const sids = document.getElementById('sids').value
-                .split('\n')
-                .map(s => s.trim())
-                .filter(s => s.length > 0);
-
-            document.getElementById('log').textContent = '🔍 Iniciando busca...\n';
-            document.querySelector('#resultados tbody').innerHTML = '';
-
-            axios.post('/api/twilio/lookup', {
-                    sids
-                })
-                .then(res => {
-                    res.data.forEach(item => {
-                        const tr = document.createElement('tr');
-                        tr.innerHTML = `
-                            <td>${item.sid}</td>
-                            <td>${item.status}</td>
-                            <td>${item.error_code ?? ''}</td>
-                            <td>${item.body ?? item.error_message}</td>
-                        `;
-                        document.getElementById('log').textContent +=
-                            `✔️ ${item.sid} → ${item.status}\n`;
-                        document.querySelector('#resultados tbody').appendChild(tr);
-                    });
-                })
-                .catch(err => {
-                    console.error('Detalhes do erro:', err.response.data);
-                    
-                    document.getElementById('log').textContent += '❌ Erro ao buscar mensagens.\n';
-                    console.error(err);
-                });
-        });
-    </script>--}}
