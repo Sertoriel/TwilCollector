@@ -1,21 +1,9 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
+@extends('layouts.app')
 
-<head>
-    <meta charset="UTF-8">
-    <title>Consulta AJAX Twilio</title>
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-</head>
+@section('title', 'Twilio SIDs Reader')
 
-<body class="p-4">
-    <h2>Consulta de SIDs com AJAX</h2>
-    <div class="mb-3">
-        <label for="twilioaccount_sid" class="form-label">SID da Conta Twilio:</label>
-        <input type="text" id="twilioaccount_sid" class="form-control" placeholder="Digite o SID da conta aqui" value="{{ old('twilioaccount_sid', $twilioaccount_sid ?? '') }}">
-        <label for="AuthToken" class="form-label">Token de Autenticação:</label>
-        <input type="text" id="AuthToken" class="form-control" placeholder="Digite o token de autenticação aqui" value="{{ old('AuthToken', $authToken ?? '') }}">
-    </div>
+@section('content')
+    <h2>Easy Log Finder Twilio📲</h2>
     <div class="mb-3">
         <label for="sids" class="form-label">Cole SIDs aqui (um por linha):</label>
         <textarea id="sids" class="form-control" rows="6"></textarea>
@@ -44,10 +32,10 @@
         </thead>
         <tbody></tbody>
     </table>
+@endsection
 
+@section('scripts')
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <script src="{{ asset ('js/app/twilio/lookup.js') }}"></script>
-    <script src="{{ asset ('js/app/twilio/clsaj.js') }}"></script>
-</body>
-
-</html>
+    <script src="{{ asset('js/app/twilio/lookup.js') }}"></script>
+    <script src="{{ asset('js/app/twilio/clsaj.js') }}"></script>
+@endsection

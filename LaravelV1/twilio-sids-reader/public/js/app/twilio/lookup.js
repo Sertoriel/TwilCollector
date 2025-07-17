@@ -4,7 +4,7 @@ document.getElementById('upload')?.addEventListener('click', () => {
     document.getElementById('log').textContent = '📤 Enviando arquivo...\n';
 
     if(!document.getElementById('sids_file').files.length) {
-        document.getElementById('log').textContent = '❌ Nenhum arquivo selecionado.';
+        document.getElementById('log').textContent = '❌ Nenhum arquivo selecionado.\n';
         return;
     }
 

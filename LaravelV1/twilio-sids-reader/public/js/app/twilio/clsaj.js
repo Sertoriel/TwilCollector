@@ -1,4 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
+    //limpa os campos de log-in
+    document.getElementById('account_sid').value = '';
+    document.getElementById('auth_token').value = '';
     // Limpa textarea de SIDs
     document.getElementById('sids').value = '';
     

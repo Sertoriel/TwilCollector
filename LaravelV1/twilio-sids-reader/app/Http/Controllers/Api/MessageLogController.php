@@ -7,17 +7,19 @@ use Illuminate\Http\Request;
 use App\Models\MessageLog;
 use Twilio\Rest\Client;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Crypt;
 
 class MessageLogController extends Controller
 {
     public function lookup(Request $request)
     {
         set_time_limit(300); // desabilita timeout para grandes listas (5 minutos)  
+        $settings = \App\Models\Twilcred_Settings::first();
 
         //📚 Dados de Cred Twilio
         $client = new Client(
-            config('twilio.account_sid'),
-            config('twilio.auth_token')
+            $settings ? Crypt::decryptString($settings->account_sid) : config('twilio.account_sid'),
+            $settings ? Crypt::decryptString($settings->auth_token) : config('twilio.auth_token')
         );
 
         // 📚 Validação dos dados recebidos
