@@ -5,10 +5,10 @@ use App\Http\Controllers\Api\MessageLogController;
 use App\Http\Controllers\TwilcredSettingsController;
 
 // ✅ Rota inicial redireciona para AJAX
-Route::get('/', fn () => redirect()->route('messages.ajax'));
+Route::get('/', fn () => redirect()->route('messages.index'));
 
-// ✅ Página AJAX
-Route::get('/messages/ajax', fn () => view('messages.ajax'))->name('messages.ajax');
+// ✅ Página Principal
+Route::get('/messages/index', fn () => view('messages.index'))->name('messages.index');
 
 // CREDENCIAIS TWILIO
 Route::post('/twilcred/settings', [TwilcredSettingsController::class, 'store'])->name('twilcred.settings.store');

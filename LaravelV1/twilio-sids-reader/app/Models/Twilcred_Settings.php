@@ -9,6 +9,7 @@ class Twilcred_Settings extends Model
     protected $fillable = [
         'account_sid',
         'auth_token',
+        'password',
     ];
 
     // // Método para obter as credenciais de Twilio

@@ -13,16 +13,23 @@ class TwilcredSettingsController extends Controller
         $validated = $request->validate([
             'account_sid' => 'required|string',
             'auth_token' => 'required|string',
+            'password' => 'required|string',
         ]);
         
         Twilcred_Settings::updateOrCreate(
-            ['id' => 1], // Assuming you want to store only one set of credentials
+            ['id'],
             [
                 'account_sid' => Crypt::encryptString($validated['account_sid']),
                 'auth_token' => Crypt::encryptString($validated['auth_token']),
+                'password' => Crypt::encryptString($validated['password']),
             ]
             );
 
         return back()->with('message', 'Credentials saved successfully.');
+    }
+
+    public function log_in()
+    {
+
     }
 }

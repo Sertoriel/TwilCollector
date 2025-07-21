@@ -40,7 +40,8 @@ class MessageLogController extends Controller
                     'body'          => $msg->body,
                     'error_message' => null,
                 ]);
-
+// // Isn't isset($msg->errorCode) because Twilio returns null if no error
+//                 Log::info("Mensagem SID: {$sid} - Status: {$msg->status}");
                 $results[] = $log;
             } catch (\Throwable $e) {
                 $log = MessageLog::create([

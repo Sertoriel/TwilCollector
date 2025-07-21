@@ -13,7 +13,10 @@
             <label for="AuthToken" class="form-label">Token de Autenticação:</label>
             <input type="text" name="auth_token" id="AuthToken" class="form-control"
                 placeholder="Digite o token de autenticação aqui" value="{{ $TwilcredSettings->Auth_Token ?? '' }}">
-            <button type="submit" class="btn btn-primary mt-2">Salvar Creds</button>
+            <label for="Pass_word" class="form-label">Senha:</label>
+            <input type="password" name="password" id="Pass_word" class="form-control"
+                placeholder="Digite a senha aqui" value="{{ $TwilcredSettings->password ?? '' }}">
+            <button type="submit" class="btn btn-primary mt-2">Log-in</button>
         </div>
     </form>
 @endsection

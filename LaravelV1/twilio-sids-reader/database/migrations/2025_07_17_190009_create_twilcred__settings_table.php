@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->text('account_sid')->nullable();
             $table->text('auth_token')->nullable();
+            $table->text('password')->nullable();
             $table->timestamps();
         });
     }
