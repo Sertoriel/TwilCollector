@@ -15,7 +15,7 @@ Route::post('/twilcred/settings/register', [TwilcredSettingsController::class, '
 //Log-in
 Route::post('/twilcred/settings/login', [TwilcredSettingsController::class, 'log_in'])->name('twilcred.settings.log_in');
 //Log-out
-
+Route::post('/twilcred/settings/logout', [TwilcredSettingsController::class, 'log_out'])->name('twilcred.settings.logout');
 // ✅ API para busca de SIDs
 Route::post('/api/twilio/lookup', [MessageLogController::class, 'lookup']);
 

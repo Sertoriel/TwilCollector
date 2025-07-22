@@ -30,24 +30,33 @@
             </ul>
 
             <div class="d-flex">
-                @auth
+                @if (session('twilcred_authenticated'))
+                    {{-- Usuário autenticado --}}
                     <button class="btn btn-outline-light me-2">
-                        <i class="bi bi-person-circle me-1"></i> {{ Auth::user()->name }}
+                        <i class="bi bi-person-circle me-1"></i>
+                        {{ session('twilcred_profile') }}
                     </button>
-                    <form method="POST" action="{{ route('logout') }}">
+                    <form method="POST" action="{{ route('twilcred.settings.logout') }}">
                         @csrf
                         <button type="submit" class="btn btn-outline-light">
                             <i class="bi bi-box-arrow-right me-1"></i> Sair
                         </button>
                     </form>
                 @else
+                    {{-- Não autenticado --}}
                     <a href="{{ route('login') }}" class="btn btn-outline-light me-2">
                         <i class="bi bi-box-arrow-in-right me-1"></i> Login
                     </a>
-                    <a href="{{ route('register') }}" class="btn btn-outline-light">
-                        <i class="bi bi-person-plus me-1"></i> Registrar
-                    </a>
-                @endauth
+                    @if (Route::has('register'))
+                        {{-- Só mostra se rota existir --}}
+                        <a href="{{ route('register') }}" class="btn btn-outline-light">
+                            <i class="bi bi-person-plus me-1"></i> Registrar
+                        </a>
+                    @endif
+                @endif
+            </div>
+            <div class="d-flex">
+
             </div>
         </div>
     </div>
