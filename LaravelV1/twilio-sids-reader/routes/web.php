@@ -10,8 +10,11 @@ Route::get('/', fn () => redirect()->route('messages.index'));
 // ✅ Página Principal
 Route::get('/messages/index', fn () => view('messages.index'))->name('messages.index');
 
-// CREDENCIAIS TWILIO
-Route::post('/twilcred/settings', [TwilcredSettingsController::class, 'store'])->name('twilcred.settings.store');
+// CREDENCIAIS de Registro TWILIO
+Route::post('/twilcred/settings/register', [TwilcredSettingsController::class, 'register'])->name('twilcred.settings.register');
+//Log-in
+Route::post('/twilcred/settings/login', [TwilcredSettingsController::class, 'log_in'])->name('twilcred.settings.log_in');
+//Log-out
 
 // ✅ API para busca de SIDs
 Route::post('/api/twilio/lookup', [MessageLogController::class, 'lookup']);
@@ -33,5 +36,5 @@ Route::get('/aurth/login', function (){
 })->name('login');
 
 Route::get('/register', function () {
-    return view('register');
+    return view('auth.register');
 })->name('register');

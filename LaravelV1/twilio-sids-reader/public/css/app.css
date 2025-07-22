@@ -7,8 +7,8 @@ body {
 
 /* ===== NAVBAR PERSONALIZADA ===== */
 .navbar-custom {
-    background: linear-gradient(135deg, #2c3e50, #1a1a2e);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    background: linear-gradient(135deg, #2c3e50, #2e4f0e);
+    box-shadow: 0 10px 12px rgba(0, 0, 0, 0.2);
     padding: 0.8rem 1rem;
 }
 
@@ -45,7 +45,7 @@ body {
 }
 
 .btn-primary {
-    background: linear-gradient(to right, #3498db, #2c3e50);
+    background: linear-gradient(to right, #3498db, #2e4f0e);
     border: none;
     padding: 10px 25px;
     font-weight: 500;
