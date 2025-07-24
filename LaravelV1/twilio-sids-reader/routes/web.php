@@ -4,11 +4,10 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\MessageLogController;
 use App\Http\Controllers\TwilcredSettingsController;
 
-// ✅ Rota inicial redireciona para AJAX
-Route::get('/', fn () => redirect()->route('messages.index'));
-
-// ✅ Página Principal
-Route::get('/messages/index', fn () => view('messages.index'))->name('messages.index');
+// Rota inicial redireciona para AJAX
+Route::get('/', function() {
+    return view('messages.index');
+})->name('messages.index');
 
 // CREDENCIAIS de Registro TWILIO
 Route::post('/twilcred/settings/register', [TwilcredSettingsController::class, 'register'])->name('twilcred.settings.register');
@@ -16,10 +15,10 @@ Route::post('/twilcred/settings/register', [TwilcredSettingsController::class, '
 Route::post('/twilcred/settings/login', [TwilcredSettingsController::class, 'log_in'])->name('twilcred.settings.log_in');
 //Log-out
 Route::post('/twilcred/settings/logout', [TwilcredSettingsController::class, 'log_out'])->name('twilcred.settings.logout');
-// ✅ API para busca de SIDs
+// API para busca de SIDs
 Route::post('/api/twilio/lookup', [MessageLogController::class, 'lookup']);
 
-// ✅ API para leitura de arquivo
+// API para leitura de arquivo
 Route::post('/api/twilio/read-file', [MessageLogController::class, 'ReadFile']);
 
 // Rotas adicionais para o navbar

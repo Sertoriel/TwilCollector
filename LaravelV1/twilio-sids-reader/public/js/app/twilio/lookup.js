@@ -1,7 +1,9 @@
 // Upload de arquivo
-document.getElementById('upload')?.addEventListener('click', () => {
+document.getElementById('upload')?.addEventListener('click', async () => {
 
     document.getElementById('log').textContent = '📤 Enviando arquivo...\n';
+
+    await new Promise(resolve => setTimeout(resolve, 1000)); // Simula um atraso de 1 segundo
 
     if(!document.getElementById('sids_file').files.length) {
         document.getElementById('log').textContent = '❌ Nenhum arquivo selecionado.\n';

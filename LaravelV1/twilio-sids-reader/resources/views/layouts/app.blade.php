@@ -24,8 +24,9 @@
     <!-- Inclui a navbar como componente -->
     <x-navbar />
     <div id="app">
-        @include('partials.alerts') {{-- Apresentação de Alertas --}}
-
+        <div class="d-inline-block mx-auto p-3">
+            @include('partials.alerts') {{-- Apresentação de Alertas --}}
+        </div>
         <main class="py-4">
             <div class="container mt-5">
                 @yield('content')

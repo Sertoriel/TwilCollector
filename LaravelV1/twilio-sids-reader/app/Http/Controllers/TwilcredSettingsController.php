@@ -42,7 +42,8 @@ class TwilcredSettingsController extends Controller
             ]
             );
 
-        return back()->with('message', 'Credentials saved successfully.');
+
+        return redirect()->route('login')->with('message', 'Credentials saved successfully.');
 
         } catch (\Exception $e) {
             \Log::error('erro ao salvar credenciais: ' . $e->getMessage());
@@ -72,19 +73,31 @@ class TwilcredSettingsController extends Controller
             'twilcred_authenticated' => true,
             'twilcred_profile' => $profile->profile,
             'twilcred_sid' => Crypt::decryptString($profile->account_sid),
-            'twilcred_token' => Crypt::decryptString($profile->auth_token)
+            'twilcred_token' => Crypt::decryptString($profile->auth_token),
+            'session_id' => session()->getId()
         ]);
 
-        return back()->with(['profile' => 'Autenticação completa.']);
+        LoginHistory::create([
+            'profile' => $profile->profile,
+            'ip_address' => $request->ip(),
+            'user_agent' => $request->header('User-Agent'),
+            'login_at' => now(),
+            'session_id' => session()->getId(),
+        ]);
 
-        sleep(5);
-
-        return redirect()->route('messages.index');
+        return redirect()->route('messages.index')->with(['profile' => 'Autenticação completa.']);
 
     }
 
     public function log_out(Request $request)
     {
+            // Registrar logout no histórico
+        if ($request->session()->has('session_id')) {
+            LoginHistory::where('session_id', session('session_id'))
+                ->whereNull('logout_at')
+                ->update(['logout_at' => now()]);
+        }
+        
         $request->session()->invalidate();
         return redirect()->route('login');
     }

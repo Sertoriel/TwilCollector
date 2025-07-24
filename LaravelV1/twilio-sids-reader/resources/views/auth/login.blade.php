@@ -7,7 +7,7 @@
         @csrf
         <p>Preencha os dados da sua conta Twilio para realizar as consultas.</p>
         <div class="mb-3">
-            <label for="profile" class="form-label">SID da Conta Twilio:</label>
+            <label for="profile" class="form-label">Nome do Perfil:</label>
             <input type="text" name="profile" id="profile" class="form-control"
                 placeholder="Digite o nome da conta aqui" value="{{ $TwilcredSettings->profile ?? '' }}">
             <label for="Pass_word" class="form-label">Senha:</label>

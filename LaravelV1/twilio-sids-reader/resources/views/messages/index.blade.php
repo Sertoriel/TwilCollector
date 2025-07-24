@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Twilio SIDs Reader')
+@section('title', '📲 Twilio SIDs Reader')
 
 @section('content')
     <h2>Easy Log Finder Twilio📲</h2>

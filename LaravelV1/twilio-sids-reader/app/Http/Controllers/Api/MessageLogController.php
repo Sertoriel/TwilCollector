@@ -11,16 +11,18 @@ use Illuminate\Support\Facades\Crypt;
 
 class MessageLogController extends Controller
 {
+    
     public function lookup(Request $request)
     {
         set_time_limit(300); // desabilita timeout para grandes listas (5 minutos)  
-        $settings = \App\Models\Twilcred_Settings::first();
-
+        if (!session('twilcred_authenticated')){
+            return redirect()->route('login');
+        }
         //📚 Dados de Cred Twilio
-        $client = new Client(
-            $settings ? Crypt::decryptString($settings->account_sid) : config('twilio.account_sid'),
-            $settings ? Crypt::decryptString($settings->auth_token) : config('twilio.auth_token')
-        );
+        $sid = session('twilcred_sid');
+        $token = session('twilcred_token');
+
+        $client = new Client($sid, $token);
 
         // 📚 Validação dos dados recebidos
         $request->validate([
@@ -58,6 +60,8 @@ class MessageLogController extends Controller
 
         return response()->json($results);
     }
+
+
     public function ReadFile(Request $request)
     {
          // Função 1: Processa arquivo TXT e retorna SIDs
@@ -78,4 +82,6 @@ class MessageLogController extends Controller
 
         return response()->json(['sids' => $sids]);
     }
+
+
 }
