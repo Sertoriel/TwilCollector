@@ -11,11 +11,11 @@ use Illuminate\Support\Facades\Crypt;
 
 class MessageLogController extends Controller
 {
-    
+
     public function lookup(Request $request)
     {
         set_time_limit(300); // desabilita timeout para grandes listas (5 minutos)  
-        if (!session('twilcred_authenticated')){
+        if (!session('twilcred_authenticated')) {
             return redirect()->route('login');
         }
         //📚 Dados de Cred Twilio
@@ -42,8 +42,8 @@ class MessageLogController extends Controller
                     'body'          => $msg->body,
                     'error_message' => null,
                 ]);
-// // Isn't isset($msg->errorCode) because Twilio returns null if no error
-//                 Log::info("Mensagem SID: {$sid} - Status: {$msg->status}");
+                // // Isn't isset($msg->errorCode) because Twilio returns null if no error
+                //                 Log::info("Mensagem SID: {$sid} - Status: {$msg->status}");
                 $results[] = $log;
             } catch (\Throwable $e) {
                 $log = MessageLog::create([
@@ -64,7 +64,7 @@ class MessageLogController extends Controller
 
     public function ReadFile(Request $request)
     {
-         // Função 1: Processa arquivo TXT e retorna SIDs
+        // Função 1: Processa arquivo TXT e retorna SIDs
         $request->validate([
             'sids_file' => 'required|file|mimes:txt'
         ]);
@@ -83,5 +83,14 @@ class MessageLogController extends Controller
         return response()->json(['sids' => $sids]);
     }
 
+    public function GetHistory(Request $request)
+    {
+        if (!session('twilcred_authenticated')) {
+            return redirect()->route('login');
+        }
 
+        $history = MessageLog::orderBy('created_at', 'desc')->paginate(10); // Renomeie para $history
+
+        return response()->json(['history' => $history]); // Passe os dados para a view
+    }
 }

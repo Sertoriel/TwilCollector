@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Register Twilio SIDs Reader')
+@section('title', '📲 Register Twilio SIDs Reader')
 
 @section('content')
     <form action="{{ route('twilcred.settings.register') }}" method="POST">

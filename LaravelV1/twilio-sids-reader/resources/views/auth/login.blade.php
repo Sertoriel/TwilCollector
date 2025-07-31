@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Login Twilio SIDs Reader')
+@section('title', '📲 Login Twilio SIDs Reader')
 
 @section('content')
     <form action="{{ route('twilcred.settings.log_in') }}" method="POST">

@@ -77,13 +77,13 @@ class TwilcredSettingsController extends Controller
             'session_id' => session()->getId()
         ]);
 
-        LoginHistory::create([
-            'profile' => $profile->profile,
-            'ip_address' => $request->ip(),
-            'user_agent' => $request->header('User-Agent'),
-            'login_at' => now(),
-            'session_id' => session()->getId(),
-        ]);
+        // LoginHistory::create([
+        //     'profile' => $profile->profile,
+        //     'ip_address' => $request->ip(),
+        //     'user_agent' => $request->header('User-Agent'),
+        //     'login_at' => now(),
+        //     'session_id' => session()->getId(),
+        // ]);
 
         return redirect()->route('messages.index')->with(['profile' => 'Autenticação completa.']);
 
