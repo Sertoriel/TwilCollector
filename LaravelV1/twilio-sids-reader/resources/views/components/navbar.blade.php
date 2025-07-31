@@ -17,8 +17,8 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link {{ request()->routeIs('history') ? 'active' : '' }}"
-                        href="{{ route('history') }}">
+                    <a class="nav-link {{ request()->routeIs('get.history') ? 'active' : '' }}"
+                        href="{{ route('get.history') }}">
                         <i class="bi bi-clock-history me-1"></i> Histórico
                     </a>
                 </li>

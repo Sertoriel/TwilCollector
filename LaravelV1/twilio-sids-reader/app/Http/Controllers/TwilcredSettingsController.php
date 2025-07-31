@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Twilcred_Settings;
+use App\Models\LoginHistory;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Crypt;
@@ -72,18 +73,19 @@ class TwilcredSettingsController extends Controller
         session([
             'twilcred_authenticated' => true,
             'twilcred_profile' => $profile->profile,
+            'twilcred_profile_id' => $profile->id,
             'twilcred_sid' => Crypt::decryptString($profile->account_sid),
             'twilcred_token' => Crypt::decryptString($profile->auth_token),
             'session_id' => session()->getId()
         ]);
 
-        // LoginHistory::create([
-        //     'profile' => $profile->profile,
-        //     'ip_address' => $request->ip(),
-        //     'user_agent' => $request->header('User-Agent'),
-        //     'login_at' => now(),
-        //     'session_id' => session()->getId(),
-        // ]);
+        LoginHistory::create([
+            'profile' => $profile->profile,
+            'ip_address' => $request->ip(),
+            'user_agent' => $request->header('User-Agent'),
+            'login_at' => now(),
+            'session_id' => session()->getId(),
+        ]);
 
         return redirect()->route('messages.index')->with(['profile' => 'Autenticação completa.']);
 

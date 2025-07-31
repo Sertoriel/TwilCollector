@@ -12,5 +12,12 @@ class MessageLog extends Model
     'error_code',
     'body',
     'error_message',
+    'twilcred_settings_id',
 ];
+
+public function profile()
+{
+    return $this->belongsTo(Twilcred_Settings::class);
+}
+
 }

@@ -11,12 +11,23 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('twilcred__settings', function (Blueprint $table) {
+        Schema::create('twilcred_settings', function (Blueprint $table) {
             $table->id();
             $table->text('account_sid')->nullable();
             $table->text('auth_token')->nullable();
             $table->text('profile')->nullable();
             $table->text('password')->nullable();
+            $table->timestamps();
+        });
+
+        Schema::create('LoginHistory', function (Blueprint $table) {
+            $table->id();
+            $table->id('session_id');
+            $table->text('profile')->nullable();
+            $table->text('ip_address')->nullable();
+            $table->text('user_agent')->nullable();
+            $table->timestamp('login_at')->nullable();
+            $table->timestamp('logout_time')->nullable();
             $table->timestamps();
         });
     }
@@ -26,6 +37,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('twilcred__settings');
+        Schema::dropIfExists('twilcred_settings');
     }
 };

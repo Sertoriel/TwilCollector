@@ -41,9 +41,10 @@ class MessageLogController extends Controller
                     'error_code'    => $msg->errorCode ?? 0,
                     'body'          => $msg->body,
                     'error_message' => null,
+                    'twilcred_settings_id' => session('twilcred_profile_id'),
                 ]);
-                // // Isn't isset($msg->errorCode) because Twilio returns null if no error
-                //                 Log::info("Mensagem SID: {$sid} - Status: {$msg->status}");
+                                                                // // Isn't isset($msg->errorCode) because Twilio returns null if no error
+                                                                //                 Log::info("Mensagem SID: {$sid} - Status: {$msg->status}");
                 $results[] = $log;
             } catch (\Throwable $e) {
                 $log = MessageLog::create([
@@ -64,7 +65,7 @@ class MessageLogController extends Controller
 
     public function ReadFile(Request $request)
     {
-        // Função 1: Processa arquivo TXT e retorna SIDs
+         // Função 1: Processa arquivo TXT e retorna SIDs
         $request->validate([
             'sids_file' => 'required|file|mimes:txt'
         ]);
@@ -89,8 +90,11 @@ class MessageLogController extends Controller
             return redirect()->route('login');
         }
 
-        $history = MessageLog::orderBy('created_at', 'desc')->paginate(10); // Renomeie para $history
+        $history = MessageLog::where('twilcred_settings_id', session('twilcred_profile_id'))
+            ->orderBy('created_at', 'desc')
+            ->paginate(30); // Paginação de 30 registros por página
 
-        return response()->json(['history' => $history]); // Passe os dados para a view
+        return view('messages.history', compact('history'));
+
     }
 }

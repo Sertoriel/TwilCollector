@@ -17,16 +17,12 @@ Route::post('/twilcred/settings/login', [TwilcredSettingsController::class, 'log
 Route::post('/twilcred/settings/logout', [TwilcredSettingsController::class, 'log_out'])->name('twilcred.settings.logout');
 // API para busca de SIDs
 Route::post('/api/twilio/lookup', [MessageLogController::class, 'lookup']);
-
-// API para busca de History
-Route::get('api/twilio/history', [MessageLogController::class, 'GetHistory'])->name('get.history');
 // API para leitura de arquivo
 Route::post('/api/twilio/read-file', [MessageLogController::class, 'ReadFile']);
 
 // Rotas adicionais para o navbar
-Route::get('/history', function () {
-    return view('messages.history');
-})->name('history');
+// API para busca/apresentação de History
+Route::get('api/twilio/history', [MessageLogController::class, 'GetHistory'])->name('get.history');
 
 Route::get('/about', function () {
     return view('about');
