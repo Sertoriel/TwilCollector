@@ -22,7 +22,7 @@ return new class extends Migration
 
         Schema::create('LoginHistory', function (Blueprint $table) {
             $table->id();
-            $table->id('session_id');
+            $table->string('session_id');
             $table->text('profile')->nullable();
             $table->text('ip_address')->nullable();
             $table->text('user_agent')->nullable();

@@ -96,8 +96,8 @@ class TwilcredSettingsController extends Controller
             // Registrar logout no histórico
         if ($request->session()->has('session_id')) {
             LoginHistory::where('session_id', session('session_id'))
-                ->whereNull('logout_at')
-                ->update(['logout_at' => now()]);
+                ->whereNull('logout_time')
+                ->update(['logout_time' => now()]);
         }
         
         $request->session()->invalidate();
