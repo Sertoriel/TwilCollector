@@ -13,6 +13,7 @@ return new class extends Migration
 {
     Schema::create('message_logs', function (Blueprint $table) {
         $table->id();
+        $table->foreignId('twilcred_settings_id')->constrained();
         $table->string('sid');
         $table->string('status')->nullable();
         $table->string('error_code')->nullable();
