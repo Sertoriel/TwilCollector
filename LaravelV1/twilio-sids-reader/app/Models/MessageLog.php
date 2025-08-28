@@ -11,6 +11,7 @@ class MessageLog extends Model
     'status',
     'error_code',
     'body',
+    'to',
     'error_message',
     'twilcred_settings_id',
 ];

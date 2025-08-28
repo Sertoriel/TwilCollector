@@ -13,8 +13,10 @@
             <thead>
                 <tr>
                     <th>Data</th>
+                    <th>Número</th>
                     <th>SID</th>
                     <th>Status</th>
+                    <th>Erro</th>
                     <th>Mensagem</th>
                 </tr>
             </thead>
@@ -23,8 +25,10 @@
                     <!-- Altere para $history -->
                     <tr>
                         <td>{{ $entry->created_at->format('d/m/Y H:i:s') }}</td>
+                        <td>{{ $entry->to }}</td>
                         <td>{{ $entry->sid }}</td>
                         <td>{{ $entry->status }}</td>
+                        <td>{{ $entry->error_code }}</td>
                         <td>
                             {{-- <small>Perfil: {{ $entry->profile->profile }}</small> --}}
                             <br>

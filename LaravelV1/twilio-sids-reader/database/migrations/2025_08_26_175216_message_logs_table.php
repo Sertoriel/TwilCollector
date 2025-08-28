@@ -18,6 +18,7 @@ return new class extends Migration
         $table->string('status')->nullable();
         $table->string('error_code')->nullable();
         $table->text('body')->nullable();
+        $table->string('to')->nullable();
         $table->text('error_message')->nullable();
         $table->timestamps();
     });

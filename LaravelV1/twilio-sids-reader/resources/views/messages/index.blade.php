@@ -28,6 +28,7 @@
                 <th>Status</th>
                 <th>Erro</th>
                 <th>Mensagem</th>
+                <th>Numero</th>
             </tr>
         </thead>
         <tbody></tbody>

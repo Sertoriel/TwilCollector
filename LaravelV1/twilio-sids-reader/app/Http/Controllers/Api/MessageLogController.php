@@ -40,6 +40,7 @@ class MessageLogController extends Controller
                     'status'        => $msg->status,
                     'error_code'    => $msg->errorCode ?? 0,
                     'body'          => $msg->body,
+                    'to'            => $msg->to,
                     'error_message' => null,
                     'twilcred_settings_id' => session('twilcred_profile_id'),
                 ]);

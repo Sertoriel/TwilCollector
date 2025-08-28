@@ -54,6 +54,7 @@ document.getElementById('buscar')?.addEventListener('click', () => {
                 <td>${item.status}</td>
                 <td>${item.error_code ?? ''}</td>
                 <td>${item.body ?? item.error_message}</td>
+                <td>${item.to ?? ''}</td>
             `;
             document.getElementById('log').textContent += `✔️ ${item.sid} → ${item.status}\n`;
             document.querySelector('#resultados tbody').appendChild(tr);
